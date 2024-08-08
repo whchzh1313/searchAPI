@@ -1,5 +1,6 @@
 package com.example.searchapi.presentation.search
 
+import android.app.Activity
 import android.content.Context
 import androidx.fragment.app.viewModels
 import android.os.Bundle
@@ -11,6 +12,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.searchapi.data.Documents
+import com.example.searchapi.data.SharedPreferences.savePref
 import com.example.searchapi.databinding.FragmentSearchBinding
 import com.example.searchapi.presentation.adapter.SearchListAdapter
 import com.google.gson.Gson
@@ -60,13 +62,13 @@ class SearchFragment : Fragment() {
         searchAdapter.itemClick = object : SearchListAdapter.ItemClick {
             override fun onClick(view: View, position: Int) {
                 val clickItem = viewModel.items.value!!.get(position)
-
-
                 Toast.makeText(this@SearchFragment.context, "clickItem.id = ${clickItem.uId}", Toast.LENGTH_SHORT).show()
-                if (clickItem.like) false else true
-                savePref(clickItem, clickItem.uId)
-                // TODO 객체를 제이슨 형태로 변환해서 저장하고
-                //  불러올때도 제이슨을 오브젝트로 변환하는 방법 찾기
+                if (clickItem.like) {
+                    clickItem.like = false
+                } else {
+                    clickItem.like = true
+                }
+                savePref(requireContext(),clickItem, clickItem.uId)
             }
         }
     }
@@ -86,13 +88,4 @@ class SearchFragment : Fragment() {
 //        Log.d("testNOW", "$loadDataTest")
 //    }
 
-    private fun savePref(value: Documents, key: String) {
-        val sharedPreferences = requireActivity().getSharedPreferences("SharedPreference", Context.MODE_PRIVATE)
-        val editor = sharedPreferences.edit()
-        val gson = Gson()
-        val json = gson.toJson(value)
-        editor.putString("SearchKey_$key", json)
-        editor.apply()
-        Log.d("debug", "Data saved")
-    }
 }

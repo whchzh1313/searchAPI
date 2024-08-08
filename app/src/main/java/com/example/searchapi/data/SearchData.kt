@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName
 
 data class SearchData(
     @SerializedName("documents")
-    val documents: List<Documents>,
+    val documents: MutableList<Documents>,
     @SerializedName("meta")
     val meta: Meta
 )

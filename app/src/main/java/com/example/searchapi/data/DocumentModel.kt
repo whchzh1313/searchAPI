@@ -1,14 +1,13 @@
-package com.example.searchapi.presentation.search
+package com.example.searchapi.data
 
-import com.example.searchapi.data.Documents
-import java.util.Date
+import com.google.gson.Gson
 import java.util.UUID
 
 data class DocumentModel(
     val uId : String = UUID.randomUUID().toString(),
-    val like : Boolean = false,
+    var like : Boolean = false,
     val collection: String,
-    val datetime: Date,
+    val datetime: String,
     val displaySitename: String,
     val docUrl: String,
     val height: Int,
@@ -27,7 +26,19 @@ fun toModel(documentReponse : List<Documents>) : List<DocumentModel> = with(docu
             height = document.height,
             imageUrl = document.imageUrl,
             thumbnailUrl = document.thumbnailUrl,
-            width = document.width
+            width = document.width,
         )
     }
+}
+
+fun makeJson(jsonString: String): List<DocumentModel> {
+    val gson = Gson()
+    val jsonObject = gson.fromJson(jsonString, Map::class.java)
+
+    val items = mutableListOf<DocumentModel>()
+    for (i in jsonObject.values) {
+        val documentModel = gson.fromJson(i.toString(), DocumentModel::class.java)
+        items.add(documentModel)
+    }
+    return items
 }

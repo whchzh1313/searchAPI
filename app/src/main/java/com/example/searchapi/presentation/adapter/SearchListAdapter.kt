@@ -1,6 +1,5 @@
 package com.example.searchapi.presentation.adapter
 
-import android.annotation.SuppressLint
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -12,16 +11,16 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.searchapi.R
-import com.example.searchapi.data.Documents
+import com.example.searchapi.data.DocumentModel
 import java.time.OffsetDateTime
 import java.time.format.DateTimeFormatter
 
-class SearchListAdapter : ListAdapter<Documents, SearchListAdapter.SearchViewHolder>(object : DiffUtil.ItemCallback<Documents>() {
-    override fun areItemsTheSame(oldItem: Documents, newItem: Documents): Boolean {
+class SearchListAdapter : ListAdapter<DocumentModel, SearchListAdapter.SearchViewHolder>(object : DiffUtil.ItemCallback<DocumentModel>() {
+    override fun areItemsTheSame(oldItem: DocumentModel, newItem: DocumentModel): Boolean {
         return oldItem.thumbnailUrl == newItem.thumbnailUrl && oldItem.imageUrl == newItem.imageUrl
     }
 
-    override fun areContentsTheSame(oldItem: Documents, newItem: Documents): Boolean {
+    override fun areContentsTheSame(oldItem: DocumentModel, newItem: DocumentModel): Boolean {
         return oldItem == newItem
     }
 }) {
@@ -44,7 +43,7 @@ class SearchListAdapter : ListAdapter<Documents, SearchListAdapter.SearchViewHol
             .load(getItem(position).thumbnailUrl)
             .into(holder.listThumbnail)
         holder.listTitle.text = getItem(position).displaySitename
-        // TODO 이것보다 쓰기 좋은 DateTime formmater이 있는지 검색
+
         val offsetDateTime = OffsetDateTime.parse(getItem(position).datetime)
         val dateFormat = DateTimeFormatter.ofPattern("yyyyMMdd HH:mm")
         val date = offsetDateTime.format(dateFormat)
@@ -53,6 +52,11 @@ class SearchListAdapter : ListAdapter<Documents, SearchListAdapter.SearchViewHol
         holder.itemView.setOnClickListener {
             itemClick?.onClick(it, position)
         }
+        if (getItem(position).like) {
+            holder.listLike.setImageResource(R.drawable.heart_on)
+        } else {
+            holder.listLike.setImageResource(R.drawable.heart_off)
+        }
         Log.d("check_id_${getItem(position).uId?: "null"}", getItem(position).uId?: "null")
     }
 
@@ -60,6 +64,7 @@ class SearchListAdapter : ListAdapter<Documents, SearchListAdapter.SearchViewHol
         val listThumbnail: ImageView = view.findViewById(R.id.list_item_thumbnail)
         val listTitle: TextView = view.findViewById(R.id.list_item_title)
         val listDate: TextView = view.findViewById(R.id.list_item_datetime)
+        val listLike: ImageView = view.findViewById(R.id.list_item_like)
     }
 
 

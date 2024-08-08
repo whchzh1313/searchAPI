@@ -1,17 +1,11 @@
 package com.example.searchapi
 
-import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.example.searchapi.databinding.ActivityMainBinding
 import com.example.searchapi.presentation.adapter.ViewPager2Adapter
-import com.example.searchapi.presentation.search.SearchViewModel
-import com.google.gson.Gson
-import com.google.gson.JsonParseException
-import com.google.gson.reflect.TypeToken
 
 
 class MainActivity : AppCompatActivity() {
@@ -41,6 +35,11 @@ class MainActivity : AppCompatActivity() {
             }
         }
     }
+
+
+
+
+
 
 
 

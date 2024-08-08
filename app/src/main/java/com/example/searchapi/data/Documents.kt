@@ -3,13 +3,12 @@ package com.example.searchapi.data
 
 import com.google.gson.annotations.SerializedName
 import java.util.Date
-import java.util.UUID
 
 data class Documents(
     @SerializedName("collection")
     val collection: String,
     @SerializedName("datetime")
-    val datetime: Date,
+    val datetime: String,
     @SerializedName("display_sitename")
     val displaySitename: String,
     @SerializedName("doc_url")
