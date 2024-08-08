@@ -16,14 +16,15 @@ import kotlinx.coroutines.launch
 
 class SearchViewModel : ViewModel() {
 //    var items = mutableListOf<Documents>()
-    private val _items = MutableLiveData<MutableList<Documents>>()
-    val items: LiveData<MutableList<Documents>>
+    private val _items = MutableLiveData<List<DocumentModel>>()
+    val items: LiveData<List<DocumentModel>>
         get() = _items
 
     fun communicateNetWork(param: String){
         viewModelScope.launch {
             val responseData = NetWorkClient.searchNetWork.getSearchList(param)
-            _items.value = responseData.documents
+            val documentModel = toModel(responseData.documents)
+            _items.value = documentModel
         }
     }
 
