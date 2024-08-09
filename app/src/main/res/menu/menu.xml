@@ -5,12 +5,12 @@
         android:id="@+id/search_fragment_move"
         android:enabled="true"
         android:icon="@drawable/search_icon"
-        android:title="검색"
+        android:title="@string/search"
         />
     <item
         android:id="@+id/bookmark_fragment_move"
         android:enabled="true"
         android:icon="@drawable/bookmark_icon"
-        android:title="북마크"
+        android:title="@string/bookmark"
         />
 </menu>

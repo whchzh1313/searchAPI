@@ -19,10 +19,4 @@ class BookmarkViewModel : ViewModel() {
         documents.value = items
     }
 
-    fun removeSelectItem (uId: String) {
-        val removeList = documents.value?.toMutableList() ?: return
-        removeList.removeAll { it.uId == uId}
-        documents.value = removeList
-    }
-
 }

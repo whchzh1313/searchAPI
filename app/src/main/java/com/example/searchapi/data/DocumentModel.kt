@@ -30,15 +30,3 @@ fun toModel(documentReponse : List<Documents>) : List<DocumentModel> = with(docu
         )
     }
 }
-
-fun makeJson(jsonString: String): List<DocumentModel> {
-    val gson = Gson()
-    val jsonObject = gson.fromJson(jsonString, Map::class.java)
-
-    val items = mutableListOf<DocumentModel>()
-    for (i in jsonObject.values) {
-        val documentModel = gson.fromJson(i.toString(), DocumentModel::class.java)
-        items.add(documentModel)
-    }
-    return items
-}

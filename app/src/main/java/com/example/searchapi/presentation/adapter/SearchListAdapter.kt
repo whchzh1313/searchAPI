@@ -49,15 +49,20 @@ class SearchListAdapter : ListAdapter<DocumentModel, SearchListAdapter.SearchVie
         val date = offsetDateTime.format(dateFormat)
         holder.listDate.text = date
 
-        holder.itemView.setOnClickListener {
-            itemClick?.onClick(it, position)
-        }
         if (getItem(position).like) {
             holder.listLike.setImageResource(R.drawable.heart_on)
         } else {
             holder.listLike.setImageResource(R.drawable.heart_off)
         }
-        Log.d("check_id_${getItem(position).uId?: "null"}", getItem(position).uId?: "null")
+
+        holder.itemView.setOnClickListener {
+            itemClick?.onClick(it, position)
+            if (getItem(position).like) {
+                holder.listLike.setImageResource(R.drawable.heart_on)
+            } else {
+                holder.listLike.setImageResource(R.drawable.heart_off)
+            }
+        }
     }
 
     inner class SearchViewHolder(view: View) : RecyclerView.ViewHolder(view) {

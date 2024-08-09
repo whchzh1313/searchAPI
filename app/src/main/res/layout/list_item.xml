@@ -23,7 +23,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:text="네이버블로그"
+        android:text="@string/dmytext_blog"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="@+id/list_item_thumbnail"
         app:layout_constraintTop_toBottomOf="@+id/list_item_thumbnail" />
@@ -33,7 +33,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:text="2024-01-21 22:50:57"
+        android:text="@string/dmytext_dateTime"
         app:layout_constraintStart_toStartOf="@+id/list_item_thumbnail"
         app:layout_constraintTop_toBottomOf="@+id/list_item_title" />
 

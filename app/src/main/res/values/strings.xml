@@ -4,4 +4,9 @@
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
+    <string name="search">검색</string>
+    <string name="search_btn">검색하기</string>
+    <string name="bookmark">북마크</string>
+    <string name="dmytext_blog">네이버블로그</string>
+    <string name="dmytext_dateTime">2024-01-21 22:50:57</string>
 </resources>

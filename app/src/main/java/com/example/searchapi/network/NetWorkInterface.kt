@@ -14,6 +14,6 @@ interface NetWorkInterface {
     @GET("image")
     suspend fun getSearchList(
         @Query("query") query: String,
-        @Query("size") size: Int = 10
+        @Query("size") size: Int = 80
     ): SearchData
 }

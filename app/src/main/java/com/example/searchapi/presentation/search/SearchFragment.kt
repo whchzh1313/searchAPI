@@ -9,9 +9,12 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
+import androidx.core.content.ContextCompat.getSystemService
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.searchapi.data.Documents
+import com.example.searchapi.data.SharedPreferences.deletePref
 import com.example.searchapi.data.SharedPreferences.savePref
 import com.example.searchapi.databinding.FragmentSearchBinding
 import com.example.searchapi.presentation.adapter.SearchListAdapter
@@ -55,6 +58,7 @@ class SearchFragment : Fragment() {
     private fun initView() = with(binding) {
         searchBtSearch.setOnClickListener{
             viewModel.communicateNetWork(binding.searchEtSearch.text.toString()?: "")
+            hideKeyboard(binding.root)
         }
 
         recyclerView.layoutManager = GridLayoutManager(this@SearchFragment.context, 2)
@@ -62,30 +66,20 @@ class SearchFragment : Fragment() {
         searchAdapter.itemClick = object : SearchListAdapter.ItemClick {
             override fun onClick(view: View, position: Int) {
                 val clickItem = viewModel.items.value!!.get(position)
-                Toast.makeText(this@SearchFragment.context, "clickItem.id = ${clickItem.uId}", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this@SearchFragment.context, "이미지가 북마크에 추가되었습니다.", Toast.LENGTH_SHORT).show()
                 if (clickItem.like) {
                     clickItem.like = false
+                    deletePref(requireContext(), clickItem.uId)
                 } else {
                     clickItem.like = true
+                    savePref(requireContext(),clickItem, clickItem.uId)
                 }
-                savePref(requireContext(),clickItem, clickItem.uId)
             }
         }
     }
-
-//    private fun saveData() {
-//        val pref = requireActivity().getSharedPreferences("pref",0)
-//        val edit = pref.edit()
-//        // 수정 모드
-//        edit.putString("name", "데이터가 넘어가긴한다")
-//        edit.apply() // 저장완료
-//    }
-//
-//    private fun loadData() {
-//        val pref = requireActivity().getSharedPreferences("pref",0)
-//        val loadDataTest = pref.getString("name","")
-//        // 1번째 인자는 키, 2번째 인자는 데이터가 존재하지 않을경우의 값
-//        Log.d("testNOW", "$loadDataTest")
-//    }
+    private fun hideKeyboard(view: View) {
+        val imm = requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.hideSoftInputFromWindow(view.windowToken, 0)
+    }
 
 }
